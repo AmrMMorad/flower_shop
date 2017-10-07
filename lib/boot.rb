@@ -4,3 +4,4 @@ end
 
 require 'bundle'
 require 'flower'
+require 'flower_product'

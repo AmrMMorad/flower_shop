@@ -38,9 +38,9 @@ describe Flower do
         expect { Flower.new(name: '', code: 'R12', bundles: bundles).to raise_error(ArgumentError) }
       end
  
-       it 'raises an error when entering empty name' do
-          expect { Flower.new(name: 'Lilies', code: '', bundles: bundles).to raise_error(ArgumentError) }
-        end
+      it 'raises an error when entering empty name' do
+        expect { Flower.new(name: 'Lilies', code: '', bundles: bundles).to raise_error(ArgumentError) }
+      end
     end
     
   end
