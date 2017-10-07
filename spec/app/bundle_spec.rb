@@ -37,4 +37,30 @@ describe Bundle do
     end
     
   end
+  
+  context '#sort' do
+    let(:bundle1) { Bundle.new(number_of_flowers: 10, price: 10) }
+    let(:bundle2) { Bundle.new(number_of_flowers: 5, price: 5) }
+    let(:bundle3) { Bundle.new(number_of_flowers: 15, price: 15) }
+    
+    let(:unsorted_bundles) do
+      [
+        bundle1,
+        bundle2,
+        bundle3
+      ]
+    end
+
+    let(:sorted_bundles) do
+      [
+        bundle3,
+        bundle1,
+        bundle2
+      ]
+    end
+
+    it 'sorts bundles by quantity asc' do
+      expect(Bundle.sort(unsorted_bundles)).to eq sorted_bundles
+    end
+  end
 end
