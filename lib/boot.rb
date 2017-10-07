@@ -3,3 +3,4 @@
 end
 
 require 'bundle'
+require 'flower'
