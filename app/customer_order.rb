@@ -6,8 +6,7 @@ class CustomerOrder
   end
 
   def request_order(requested_flowers, flower)
-
-    order_min_bundles = BundleChooser.new.choose_min_bundles(requested_flowers, flower.bundles)
+    order_min_bundles = BundleChooser.new.choose_min_bundles(requested_flowers, Bundle.sort(flower.bundles))
     make_order flower, requested_flowers, order_min_bundles
   end
 
