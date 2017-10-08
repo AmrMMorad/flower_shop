@@ -4,7 +4,7 @@ class FlowerProduct
   def initialize(flowers_products)
     @flowers_products = flowers_products.map { |flower_product| insert_flower_product(flower_product) }
   end
-  
+
   def get_flower_by_code(code)
     @flowers_products.detect { |flower_product| flower_product.code == code }
   end

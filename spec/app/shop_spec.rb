@@ -35,15 +35,15 @@ describe Shop do
 
   context 'when order has negative flower number' do
     let(:order) { [{ code: 'T58', number_of_flowers: -1 }] }
-    
+
     it 'should raise an error' do
       expect { shop.order(order) }.to raise_error(ArgumentError)
     end
   end
-  
+
   context 'when order has empty code' do
     let(:order) { [{ code: '', number_of_flowers: 5 }] }
-    
+
     it 'should raise an error' do
       expect { shop.order(order) }.to raise_error(ArgumentError)
     end
@@ -90,6 +90,6 @@ describe Shop do
     it 'should have valid output' do
       expect(shop.order(order)).to eq result
     end
-    
+
   end
 end

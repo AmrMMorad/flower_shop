@@ -1,9 +1,9 @@
 require 'spec_helper'
 
 describe FlowerProduct do
-  
+
   context '#new' do
-    
+
     let(:flowers_products) do
       [
         {
@@ -23,7 +23,6 @@ describe FlowerProduct do
       ]
     end
 
-    
     let(:flower_products) {FlowerProduct.new(flowers_products)}
 
     it 'creates new flower' do

@@ -22,7 +22,7 @@ class CustomerOrder
       total_price: calculate_total_price(bundles_with_prices)
     }
   end
-  
+
   def get_bundles_price_numbers(flower_bundles, order_min_bundles)
     order_min_bundles.map do |number_of_flowers, number_needed|
       {
