@@ -5,3 +5,4 @@ end
 require 'bundle'
 require 'flower'
 require 'flower_product'
+require 'bundle_chooser'
