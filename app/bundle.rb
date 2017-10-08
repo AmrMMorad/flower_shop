@@ -23,5 +23,13 @@ class Bundle
     def sort(bundles)
       bundles.sort_by(&:number_of_flowers).reverse
     end
+    
+    def bundle_with_prices(bundles)
+      bundle_with_prices = {}
+      bundles.each do |bundle|
+        bundle_with_prices[bundle.number_of_flowers] = bundle.price
+      end
+      bundle_with_prices
+    end
   end
 end
