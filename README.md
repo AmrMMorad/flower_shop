@@ -101,6 +101,7 @@ and the order text file is:
     13 T58
     
 The output will be:
+
 	10 R12 $12.99
 	   10 X 1 $12.99
 	15 L09 $41.9
