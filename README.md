@@ -1,43 +1,111 @@
-# FlowerShop
+# Flower Shop
+A flower shop used to base the price of their flowers on an item by item cost. So if a customer ordered 10 roses then they would be charged 10x the cost of single rose. The flower shop has decided to start selling their flowers in bundles and charging the customer on a per bundle basis. So if the shop sold roses in bundles of 5 and 10 and a customer ordered 15 they would get a bundle of 10 and a bundle of 5.
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/flower_shop`. To experiment with that code, run `bin/console` for an interactive prompt.
+## Environment
+For the environment, we need to do the following:
 
-TODO: Delete this and the text above, and describe your gem
+#### Install Ruby
+Ruby can be installed [here](https://www.ruby-lang.org/en/documentation/installation/). This code is written using Ruby 2.4
 
-## Installation
+#### Install RubyGem
+RubyGems can be installed [here](https://rubygems.org/pages/download). RubyGems is a package management framework for Ruby
 
-Add this line to your application's Gemfile:
+#### Install bundler
+The following command used to install bundler: 
+	
+	gem install bundler
 
-```ruby
-gem 'flower_shop'
-```
+Bundler is used to provide a consistent environment for Ruby projects. It tracks and installs the needed gems and versions.
 
-And then execute:
+## Installation instructions
+First, we need to install the required gems by:
 
-    $ bundle
+    bundle install
 
-Or install it yourself as:
+## Testing instructions
+RSpec is used for testing. Run the following command to test the application
 
-    $ gem install flower_shop
+    rspec spec
 
-## Usage
+All test should be green.
 
-TODO: Write usage instructions here
+## Usage instructions
+We need to pass 2 parameters to the program in order to work as follows:
+1. Json file for flower items that we are having in the shop.
+2. Text file representing the customer order
 
-## Development
+Then use the following command:
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+    ruby test.rb data/flower_products.json data/input_data.txt
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+# For the Input file of:
 
-## Contributing
+    [
+	  {
+	    "name" : "Roses",
+	    "code" : "R12",
+	    "bundles": [
+	      {
+	        "number_of_flowers": 5,
+	        "price": 6.99
+	      },
+	      {
+	        "number_of_flowers": 10,
+	        "price": 12.99
+	      }
+	    ]
+	  },
+	  {
+	    "name" : "Lilies",
+	    "code" : "L09",
+	    "bundles": [
+	      {
+	        "number_of_flowers": 3,
+	        "price": 9.95
+	      },
+	      {
+	        "number_of_flowers": 6,
+	        "price": 16.95
+	      },
+	      {
+	        "number_of_flowers": 9,
+	        "price": 24.95
+	      }
+	    ]
+	  },
+	  {
+	    "name" : "Tulips",
+	    "code" : "T58",
+	    "bundles": [
+	      {
+	        "number_of_flowers": 3,
+	        "price": 5.95
+	      },
+	      {
+	        "number_of_flowers": 5,
+	        "price": 9.95
+	      },
+	      {
+	        "number_of_flowers": 9,
+	        "price": 16.99
+	      }
+	    ]
+	  }
+	]
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/flower_shop. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
-## License
+and the order text file is:
 
-The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-
-## Code of Conduct
-
-Everyone interacting in the FlowerShop project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/flower_shop/blob/master/CODE_OF_CONDUCT.md).
+    10 R12
+    15 L09
+    13 T58
+    
+The output will be:
+	10 R12 $12.99
+	   10 X 1 $12.99
+	15 L09 $41.9
+	   9 X 1 $24.95
+	   6 X 1 $16.95
+	13 T58 $25.85
+	   5 X 2 $9.95
+	   3 X 1 $5.95
