@@ -11,7 +11,7 @@ class Flower
   private
 
   def validate_input(name, code)
-    raise ArgumentError, "invalid flower parameters" if name.blank? && code.blank?
+    raise ArgumentError, "invalid flower parameters" if (name.nil? || name.empty?) && (code.nil? || code.empty?)
   end
 
 end
