@@ -1,9 +1,7 @@
 require 'spec_helper'
 
 describe FlowerProduct do
-
   context '#new' do
-
     let(:flowers_products) do
       [
         {
@@ -23,7 +21,7 @@ describe FlowerProduct do
       ]
     end
 
-    let(:flower_products) {FlowerProduct.new(flowers_products)}
+    let(:flower_products) { FlowerProduct.new(flowers_products) }
 
     it 'creates new flower' do
       expect(Flower).to receive(:new)
@@ -34,6 +32,5 @@ describe FlowerProduct do
       expect(Bundle).to receive(:new).twice
       flower_products
     end
-
   end
 end

@@ -2,14 +2,13 @@ require 'spec_helper'
 
 describe CustomerOrder do
   context '#request_order' do
-
     context 'low value' do
       let(:bundles) do
-          [
-            Bundle.new(number_of_flowers: 5, price: 6.99),
-            Bundle.new(number_of_flowers: 10, price: 12.99)
-          ]
-        end
+        [
+          Bundle.new(number_of_flowers: 5, price: 6.99),
+          Bundle.new(number_of_flowers: 10, price: 12.99)
+        ]
+      end
 
       let(:flower) { Flower.new(name: 'Roses', code: 'R12', bundles: bundles) }
 
@@ -29,16 +28,16 @@ describe CustomerOrder do
 
       it 'has {}' do
         expect(subject[:order_bundles]).to eq([])
-      end      
+      end
     end
 
     context 'minimum bundles' do
       let(:bundles) do
-          [
-            Bundle.new(number_of_flowers: 9, price: 16.99),
-            Bundle.new(number_of_flowers: 5, price: 9.95),
-            Bundle.new(number_of_flowers: 3, price: 5.95)
-          ]
+        [
+          Bundle.new(number_of_flowers: 9, price: 16.99),
+          Bundle.new(number_of_flowers: 5, price: 9.95),
+          Bundle.new(number_of_flowers: 3, price: 5.95)
+        ]
       end
 
       let(:flower) { Flower.new(name: 'Tulips', code: 'T58', bundles: bundles) }
@@ -79,10 +78,10 @@ describe CustomerOrder do
 
     context 'one bundle' do
       let(:bundles) do
-          [
-            Bundle.new(number_of_flowers: 5, price: 6.99),
-            Bundle.new(number_of_flowers: 10, price: 12.99)
-          ]
+        [
+          Bundle.new(number_of_flowers: 5, price: 6.99),
+          Bundle.new(number_of_flowers: 10, price: 12.99)
+        ]
       end
 
       let(:flower) { Flower.new(name: 'Roses', code: 'R12', bundles: bundles) }
@@ -113,8 +112,7 @@ describe CustomerOrder do
 
       it 'has 1 => 10' do
         expect(subject[:order_bundles]).to eq(customer_order_bundles)
-      end      
+      end
     end
-
   end
 end

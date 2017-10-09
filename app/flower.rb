@@ -1,3 +1,6 @@
+##
+# This class contains the needed parameters for the
+# flower object along with needed validation
 class Flower
   attr_reader :name, :code, :bundles
 
@@ -11,7 +14,7 @@ class Flower
   private
 
   def validate_input(name, code)
-    raise ArgumentError, "invalid flower parameters" if (name.nil? || name.empty?) && (code.nil? || code.empty?)
+    raise ArgumentError, 'invalid flower parameters' if
+      (name.nil? || name.empty?) && (code.nil? || code.empty?)
   end
-
 end

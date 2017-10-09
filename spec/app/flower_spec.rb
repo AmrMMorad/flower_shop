@@ -3,7 +3,6 @@ require 'spec_helper'
 describe Flower do
 
   context '#new' do
-
     context 'with valid input values' do
       let(:bundles) do
         [
@@ -43,6 +42,5 @@ describe Flower do
         expect { Flower.new(name: 'Lilies', code: '', bundles: bundles).to raise_error(ArgumentError) }
       end
     end
-
   end
 end

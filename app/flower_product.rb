@@ -1,8 +1,13 @@
+##
+# This class is used to read and insert
+# the data from the json file
 class FlowerProduct
   attr_reader :flowers_products
 
   def initialize(flowers_products)
-    @flowers_products = flowers_products.map { |flower_product| insert_flower_product(flower_product) }
+    @flowers_products = flowers_products.map do |flower_product|
+      insert_flower_product(flower_product)
+    end
   end
 
   def get_flower_by_code(code)
@@ -20,7 +25,7 @@ class FlowerProduct
   end
 
   def get_bundles(bundles_json)
-    bundles = bundles_json.map { |bundle| insert_bundle(bundle) }
+    bundles_json.map { |bundle| insert_bundle(bundle) }
   end
 
   def insert_bundle(bundle_json)
