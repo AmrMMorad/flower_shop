@@ -1,3 +1,7 @@
+##
+# This class contains all attributes for bundle (number of flowers
+# and price) along with needed validation.
+# The class als contains method for getting the bundle with prices.
 class Bundle
   attr_reader :number_of_flowers, :price
 
