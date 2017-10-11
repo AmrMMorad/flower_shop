@@ -3,11 +3,11 @@
 require './lib/boot'
 require 'json'
 
-class Test
+class App
   class << self
     # This method takes the input data and the order data as parameters 
     # to execute the program on them
-    def test(args)
+    def main(args)
       flowers_json = JSON.parse(File.read(args[0]), symbolize_names: true)
       order = read_customer_order_file(args[1])
       orders = Shop.new(flowers_json).order(order)
@@ -44,4 +44,4 @@ class Test
 end
 
 # call the test method when calling this file and pass the arguments
-Test.test ARGV
+App.main ARGV

@@ -22,8 +22,6 @@ class Bundle
     number.is_a?(Numeric) && number >= 0
   end
 
-  # Sorting will be needed for the sake of the algorithm
-  # to pick minimum number of bundles
   class << self
     def sort(bundles)
       bundles.sort_by(&:number_of_flowers).reverse

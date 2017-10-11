@@ -20,7 +20,6 @@ class CustomerOrder
 
   private
 
-  # This is used to really execute the customer order
   def make_order(flower, requested_flowers, order_min_bundles)
     bundles_with_prices = get_bundles_price_numbers(Bundle
       .bundle_with_prices(flower.bundles), order_min_bundles)

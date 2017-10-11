@@ -36,7 +36,7 @@ We need to pass 2 parameters to the program in order to work as follows:
 
 Then use the following command:
 
-    ruby test.rb data/flower_products.json data/input_data.txt
+    ruby app.rb data/flower_products.json data/input_data.txt
 
 # For the Input file of:
 
