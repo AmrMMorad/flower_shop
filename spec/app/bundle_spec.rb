@@ -5,7 +5,7 @@ describe Bundle do
 
     context 'with valid input values' do
       before do
-        @bundle = Bundle.new(number_of_flowers: 10, price: 12.99)
+        @bundle = Bundle.new(number_of_flowers: 10, price: 12.99, type: 'type1')
       end
 
       it 'has a valid number of flowers' do
@@ -15,12 +15,16 @@ describe Bundle do
       it 'has a valid price' do
         expect(@bundle.price).to eq 12.99
       end
+      
+      it 'has a type' do
+        expect(@bundle.type).to eq 'type1'
+      end
     end
 
     context 'with invalid input values' do
       it 'raises an error when entering invalid number of flowers' do
         expect do
-          Bundle.new(number_of_flowers: 'aaa', price: 5)
+          Bundle.new(number_of_flowers: 'aaa', price: 5, type: 'type1')
         end.to raise_error(ArgumentError)
       end
 
@@ -45,9 +49,9 @@ describe Bundle do
   end
 
   context '#sort' do
-    let(:bundle1) { Bundle.new(number_of_flowers: 10, price: 10) }
-    let(:bundle2) { Bundle.new(number_of_flowers: 5, price: 5) }
-    let(:bundle3) { Bundle.new(number_of_flowers: 15, price: 15) }
+    let(:bundle1) { Bundle.new(number_of_flowers: 10, price: 10, type: 'type1') }
+    let(:bundle2) { Bundle.new(number_of_flowers: 5, price: 5, type: 'type1') }
+    let(:bundle3) { Bundle.new(number_of_flowers: 15, price: 15, type: 'type1') }
 
     let(:unsorted_bundles) do
       [
@@ -71,9 +75,9 @@ describe Bundle do
   end
 
   context '#bundle_with_prices' do
-    let(:bundle1) { Bundle.new(number_of_flowers: 10, price: 10) }
-    let(:bundle2) { Bundle.new(number_of_flowers: 5, price: 5) }
-    let(:bundle3) { Bundle.new(number_of_flowers: 15, price: 15) }
+    let(:bundle1) { Bundle.new(number_of_flowers: 10, price: 10, type: 'type1') }
+    let(:bundle2) { Bundle.new(number_of_flowers: 5, price: 5, type: 'type1') }
+    let(:bundle3) { Bundle.new(number_of_flowers: 15, price: 15, type: 'type1') }
 
     let(:bundles) do
       [

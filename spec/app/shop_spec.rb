@@ -7,54 +7,70 @@ describe Shop do
         name: 'Roses',
         code: 'R12',
         bundles: [
-          { number_of_flowers: 5, price: 6.99 },
-          { number_of_flowers: 10, price: 12.99 }
+          { number_of_flowers: 5, price: 6.99, type: 'type1' },
+          { number_of_flowers: 10, price: 12.99, type: 'type1' },
+          { number_of_flowers: 5, price: 8.99, type: 'type2' },
+          { number_of_flowers: 10, price: 14.99, type: 'type2' }
         ]
       },
       {
         name: 'Lilies',
         code: 'L09',
         bundles: [
-          { number_of_flowers: 3, price: 9.95 },
-          { number_of_flowers: 6, price: 16.95 },
-          { number_of_flowers: 9, price: 24.95 }
+          { number_of_flowers: 3, price: 9.95, type: 'type1' },
+          { number_of_flowers: 6, price: 16.95, type: 'type1' },
+          { number_of_flowers: 9, price: 24.95, type: 'type1' },
+          { number_of_flowers: 3, price: 11.95, type: 'type2' },
+          { number_of_flowers: 6, price: 18.95, type: 'type2' },
+          { number_of_flowers: 9, price: 26.95, type: 'type2' }
         ]
       },
       {
         name: 'Tulips',
         code: 'T58',
         bundles: [
-          { number_of_flowers: 3, price: 5.95 },
-          { number_of_flowers: 5, price: 9.95 },
-          { number_of_flowers: 9, price: 16.99 }
+          { number_of_flowers: 3, price: 5.95, type: 'type1' },
+          { number_of_flowers: 5, price: 9.95, type: 'type1' },
+          { number_of_flowers: 9, price: 16.99, type: 'type1' },
+          { number_of_flowers: 3, price: 7.95, type: 'type2' },
+          { number_of_flowers: 5, price: 11.95, type: 'type2' },
+          { number_of_flowers: 9, price: 18.99, type: 'type2' }
         ]
       }
     ]
   end
   let(:shop) { Shop.new(flowers) }
 
-  context 'when order has negative flower number' do
-    let(:order) { [{ code: 'T58', number_of_flowers: -1 }] }
-
-    it 'should raise an error' do
-      expect { shop.order(order) }.to raise_error(ArgumentError)
-    end
-  end
-
-  context 'when order has empty code' do
-    let(:order) { [{ code: '', number_of_flowers: 5 }] }
-
-    it 'should raise an error' do
-      expect { shop.order(order) }.to raise_error(ArgumentError)
-    end
-  end
+  # context 'when order has negative flower number' do
+    # let(:order) { [{ code: 'T58', number_of_flowers: -1, type: 'type1' }] }
+# 
+    # it 'should raise an error' do
+      # expect { shop.order(order) }.to raise_error(ArgumentError)
+    # end
+  # end
+# 
+  # context 'when order has empty code' do
+    # let(:order) { [{ code: '', number_of_flowers: 5, type: 'type1' }] }
+# 
+    # it 'should raise an error' do
+      # expect { shop.order(order) }.to raise_error(ArgumentError)
+    # end
+  # end
+#   
+  # context 'when order has empty type' do
+    # let(:order) { [{ code: '', number_of_flowers: 5, type: '' }] }
+# 
+    # it 'should raise an error' do
+      # expect { shop.order(order) }.to raise_error(ArgumentError)
+    # end
+  # end
 
   context 'when the order items are valid' do
     let(:order) do
       [
-        { number_of_flowers: 10, code: 'R12' },
-        { number_of_flowers: 15, code: 'L09' },
-        { number_of_flowers: 13, code: 'T58' }
+        { number_of_flowers: 10, code: 'R12', type: 'type1' },
+        { number_of_flowers: 15, code: 'L09', type: 'type2' },
+        { number_of_flowers: 13, code: 'T58', type: 'type1' }
       ]
     end
 
@@ -70,10 +86,10 @@ describe Shop do
           flower_code: 'L09',
           requested_flower: 15,
           order_bundles: [
-            { number_of_flowers: 9, number_needed: 1, price: 24.95 },
-            { number_of_flowers: 6, number_needed: 1, price: 16.95 }
+            { number_of_flowers: 9, number_needed: 1, price: 26.95 },
+            { number_of_flowers: 6, number_needed: 1, price: 18.95 }
           ],
-          total_price: 41.90
+          total_price: 45.90
         },
         {
           flower_code: 'T58',

@@ -12,13 +12,20 @@ class CustomerOrder
   # This method is used to execute the order request
   # It mainly calls BundleChooser class to get the min
   # bundles needed for the required quantity
-  def request_order(requested_flowers, flower)
+  def request_order(requested_flowers, flower, type)
+    cloned_flower = adjust_flower flower, type
     order_min_bundles = BundleChooser.new
-      .choose_min_bundles(requested_flowers, Bundle.sort(flower.bundles))
-    make_order flower, requested_flowers, order_min_bundles
+      .choose_min_bundles(requested_flowers, Bundle.sort(cloned_flower.bundles), type)
+    make_order cloned_flower, requested_flowers, order_min_bundles
   end
 
   private
+  
+  def adjust_flower(flower, type)
+    bundles = flower.bundles.select { |bundle| bundle.type == type }
+    flower_cloned = Flower.new(name: flower.name, code: flower.code, bundles: bundles)
+    flower_cloned
+  end
 
   def make_order(flower, requested_flowers, order_min_bundles)
     bundles_with_prices = get_bundles_price_numbers(Bundle

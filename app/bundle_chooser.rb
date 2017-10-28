@@ -11,7 +11,8 @@ class BundleChooser
   # no bundles in the system.
   # This method calls another private function to get the min bundles
   # used to achieve the required number.
-  def choose_min_bundles(requested_flowers, bundles)
+  def choose_min_bundles(requested_flowers, bundles, type)
+    bundles.select! { |bundle| bundle.type == type }
     return {} if requested_flowers.zero? || bundles.empty?
     get_min_bundles requested_flowers, bundles
   end
