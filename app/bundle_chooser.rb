@@ -39,14 +39,22 @@ class BundleChooser
       return
     end
 
-    return if requested_flowers < bundles.last.number_of_flowers
+    return if bundles.last.nil? || requested_flowers < bundles.last.number_of_flowers
 
     bundles.each do |bund|
-      next if requested_flowers - bund.number_of_flowers < 0
-      get_possible_bundles requested_flowers - bund.number_of_flowers,
-                           bundles,
+      # puts "---------------------------"
+      # puts bund
+      # puts "---------------------------"
+      remaining_number_needed = requested_flowers - bund.number_of_flowers
+      next if remaining_number_needed < 0
+      get_possible_bundles remaining_number_needed,
+                           remove_bigger_quantities(bundles, remaining_number_needed),
                            adjust_bundle(bundle, bund.number_of_flowers)
     end
+  end
+  
+  def remove_bigger_quantities(bundles, needed_number)
+    bundles.select { |bundle| bundle.number_of_flowers <= needed_number }
   end
 
   ##
