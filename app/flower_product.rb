@@ -34,7 +34,8 @@ class FlowerProduct
   def insert_bundle(bundle_json)
     Bundle.new(
       number_of_flowers: bundle_json.fetch(:number_of_flowers),
-      price:             bundle_json.fetch(:price)
+      price:             bundle_json.fetch(:price),
+      price_after_offer: bundle_json.fetch(:price_after_offer)
     )
   end
 end

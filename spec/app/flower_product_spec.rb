@@ -10,11 +10,13 @@ describe FlowerProduct do
           bundles: [
             {
               number_of_flowers: 5,
-              price: 6.99
+              price: 6.99,
+              price_after_offer: 5.99
             },
             {
               number_of_flowers: 10,
-              price: 12.99
+              price: 12.99,
+              price_after_offer: 11.99
             }
           ]
         }

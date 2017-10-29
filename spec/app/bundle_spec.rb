@@ -5,7 +5,7 @@ describe Bundle do
 
     context 'with valid input values' do
       before do
-        @bundle = Bundle.new(number_of_flowers: 10, price: 12.99)
+        @bundle = Bundle.new(number_of_flowers: 10, price: 12.99, price_after_offer: 10)
       end
 
       it 'has a valid number of flowers' do
@@ -15,12 +15,16 @@ describe Bundle do
       it 'has a valid price' do
         expect(@bundle.price).to eq 12.99
       end
+      
+      it 'has a valid price after offer' do
+        expect(@bundle.price_after_offer).to eq 10
+      end
     end
 
     context 'with invalid input values' do
       it 'raises an error when entering invalid number of flowers' do
         expect do
-          Bundle.new(number_of_flowers: 'aaa', price: 5)
+          Bundle.new(number_of_flowers: 'aaa', price: 5, price_after_offer: 4)
         end.to raise_error(ArgumentError)
       end
 
@@ -41,13 +45,19 @@ describe Bundle do
           Bundle.new(number_of_flowers: 5, price: -5)
         end.to raise_error(ArgumentError)
       end
+      
+      it 'raises an error when entering negative number in price after offer' do
+        expect do
+          Bundle.new(number_of_flowers: 5, price: 5, price_after_offer: -4)
+        end.to raise_error(ArgumentError)
+      end
     end
   end
 
   context '#sort' do
-    let(:bundle1) { Bundle.new(number_of_flowers: 10, price: 10) }
-    let(:bundle2) { Bundle.new(number_of_flowers: 5, price: 5) }
-    let(:bundle3) { Bundle.new(number_of_flowers: 15, price: 15) }
+    let(:bundle1) { Bundle.new(number_of_flowers: 10, price: 10, price_after_offer: 9) }
+    let(:bundle2) { Bundle.new(number_of_flowers: 5, price: 5, price_after_offer: 4) }
+    let(:bundle3) { Bundle.new(number_of_flowers: 15, price: 15, price_after_offer: 14) }
 
     let(:unsorted_bundles) do
       [
@@ -71,9 +81,9 @@ describe Bundle do
   end
 
   context '#bundle_with_prices' do
-    let(:bundle1) { Bundle.new(number_of_flowers: 10, price: 10) }
-    let(:bundle2) { Bundle.new(number_of_flowers: 5, price: 5) }
-    let(:bundle3) { Bundle.new(number_of_flowers: 15, price: 15) }
+    let(:bundle1) { Bundle.new(number_of_flowers: 10, price: 10, price_after_offer: 9) }
+    let(:bundle2) { Bundle.new(number_of_flowers: 5, price: 5, price_after_offer: 4) }
+    let(:bundle3) { Bundle.new(number_of_flowers: 15, price: 15, price_after_offer: 14) }
 
     let(:bundles) do
       [
@@ -83,16 +93,29 @@ describe Bundle do
       ]
     end
 
-    let(:bundle_with_prices) do
+    let(:bundle_with_prices_no_offer) do
       {
         10 => 10,
         5  => 5,
         15 => 15
       }
     end
-
-    it 'should return bundle prices' do
-      expect(Bundle.bundle_with_prices(bundles)).to eq bundle_with_prices
+    
+    let(:bundle_with_prices_offer) do
+      {
+        10 => 9,
+        5  => 4,
+        15 => 14
+      }
     end
+
+    it 'should return bundle prices with no offer' do
+      expect(Bundle.bundle_with_prices(bundles, false)).to eq bundle_with_prices_no_offer
+    end
+    
+    it 'should return bundle prices with offer' do
+      expect(Bundle.bundle_with_prices(bundles, true)).to eq bundle_with_prices_offer
+    end
+    
   end
 end

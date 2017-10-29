@@ -5,114 +5,209 @@ describe CustomerOrder do
     context 'low value' do
       let(:bundles) do
         [
-          Bundle.new(number_of_flowers: 5, price: 6.99),
-          Bundle.new(number_of_flowers: 10, price: 12.99)
+          Bundle.new(number_of_flowers: 5, price: 6.99, price_after_offer: 5.99),
+          Bundle.new(number_of_flowers: 10, price: 12.99, price_after_offer: 11.99)
         ]
       end
 
       let(:flower) { Flower.new(name: 'Roses', code: 'R12', bundles: bundles) }
 
-      let(:subject) { CustomerOrder.new.request_order(3, flower).first }
+      context 'with no offer' do
+        let(:subject) { CustomerOrder.new.request_order(3, flower, false).first }
 
-      it 'has the same flower code' do
-        expect(subject[:flower_code]).to eq 'R12'
+        it 'has the same flower code' do
+          expect(subject[:flower_code]).to eq 'R12'
+        end
+  
+        it 'has the same number of flowers' do
+          expect(subject[:requested_flower]).to eq 3
+        end
+  
+        it 'has total price of 0' do
+          expect(subject[:total_price]).to eq 0
+        end
+  
+        it 'has {}' do
+          expect(subject[:order_bundles]).to eq([])
+        end
       end
+      
+      context 'with offer' do
+        let(:subject) { CustomerOrder.new.request_order(3, flower, true).first }
 
-      it 'has the same number of flowers' do
-        expect(subject[:requested_flower]).to eq 3
+        it 'has the same flower code' do
+          expect(subject[:flower_code]).to eq 'R12'
+        end
+  
+        it 'has the same number of flowers' do
+          expect(subject[:requested_flower]).to eq 3
+        end
+  
+        it 'has total price of 0' do
+          expect(subject[:total_price]).to eq 0
+        end
+  
+        it 'has {}' do
+          expect(subject[:order_bundles]).to eq([])
+        end
       end
-
-      it 'has total price of 0' do
-        expect(subject[:total_price]).to eq 0
-      end
-
-      it 'has {}' do
-        expect(subject[:order_bundles]).to eq([])
-      end
+      
     end
 
     context 'minimum bundles' do
       let(:bundles) do
         [
-          Bundle.new(number_of_flowers: 9, price: 16.99),
-          Bundle.new(number_of_flowers: 5, price: 9.95),
-          Bundle.new(number_of_flowers: 3, price: 5.95)
+          Bundle.new(number_of_flowers: 9, price: 16.99, price_after_offer: 15.99),
+          Bundle.new(number_of_flowers: 5, price: 9.95, price_after_offer: 8.95),
+          Bundle.new(number_of_flowers: 3, price: 5.95, price_after_offer: 4.95)
         ]
       end
 
       let(:flower) { Flower.new(name: 'Tulips', code: 'T58', bundles: bundles) }
 
-      let(:customer_order_bundles) do
-        [
-          {
-            number_of_flowers: 5,
-            number_needed: 2,
-            price: 9.95
-          },
-          {
-            number_of_flowers: 3,
-            number_needed: 1,
-            price: 5.95
-          }
-        ]
-      end
+      context 'no offer' do
+        
+        let(:customer_order_bundles_no_offer) do
+          [
+            {
+              number_of_flowers: 5,
+              number_needed: 2,
+              price: 9.95
+            },
+            {
+              number_of_flowers: 3,
+              number_needed: 1,
+              price: 5.95
+            }
+          ]
+        end
+        
+        let(:subject) { CustomerOrder.new.request_order(13, flower, false).first }
 
-      let(:subject) { CustomerOrder.new.request_order(13, flower).first }
-
-      it 'has the same flower code' do
-        expect(subject[:flower_code]).to eq 'T58'
+        it 'has the same flower code' do
+          expect(subject[:flower_code]).to eq 'T58'
+        end
+  
+        it 'has the same number of flowers' do
+          expect(subject[:requested_flower]).to eq 13
+        end
+  
+        it 'has total price of 25.85' do
+          expect(subject[:total_price]).to eq 25.85
+        end
+  
+        it 'has 2 => 5 and 1 => 3' do
+          expect(subject[:order_bundles]).to eq(customer_order_bundles_no_offer)
+        end  
       end
+      
+      context 'offer' do
+        
+        let(:customer_order_bundles_offer) do
+          [
+            {
+              number_of_flowers: 5,
+              number_needed: 2,
+              price: 8.95
+            },
+            {
+              number_of_flowers: 3,
+              number_needed: 1,
+              price: 4.95
+            }
+          ]
+        end
+        
+        let(:subject) { CustomerOrder.new.request_order(13, flower, true).first }
 
-      it 'has the same number of flowers' do
-        expect(subject[:requested_flower]).to eq 13
+        it 'has the same flower code' do
+          expect(subject[:flower_code]).to eq 'T58'
+        end
+  
+        it 'has the same number of flowers' do
+          expect(subject[:requested_flower]).to eq 13
+        end
+  
+        it 'has total price of 25.85' do
+          expect(subject[:total_price]).to eq 22.85
+        end
+  
+        it 'has 2 => 5 and 1 => 3' do
+          expect(subject[:order_bundles]).to eq(customer_order_bundles_offer)
+        end  
       end
-
-      it 'has total price of 25.85' do
-        expect(subject[:total_price]).to eq 25.85
-      end
-
-      it 'has 2 => 5 and 1 => 3' do
-        expect(subject[:order_bundles]).to eq(customer_order_bundles)
-      end
+      
     end
 
     context 'one bundle' do
       let(:bundles) do
         [
-          Bundle.new(number_of_flowers: 5, price: 6.99),
-          Bundle.new(number_of_flowers: 10, price: 12.99)
+          Bundle.new(number_of_flowers: 5, price: 6.99, price_after_offer: 5.99),
+          Bundle.new(number_of_flowers: 10, price: 12.99, price_after_offer: 11.99)
         ]
       end
 
       let(:flower) { Flower.new(name: 'Roses', code: 'R12', bundles: bundles) }
 
-      let(:customer_order_bundles) do
-        [
-          {
-            number_of_flowers: 10,
-            number_needed: 1,
-            price: 12.99
-          }
-        ]
+      context 'no offer' do
+        let(:customer_order_bundles) do
+          [
+            {
+              number_of_flowers: 10,
+              number_needed: 1,
+              price: 12.99
+            }
+          ]
+        end
+  
+        let(:subject) { CustomerOrder.new.request_order(10, flower, false).first }
+  
+        it 'has the same flower code' do
+          expect(subject[:flower_code]).to eq 'R12'
+        end
+  
+        it 'has the same number of flowers' do
+          expect(subject[:requested_flower]).to eq 10
+        end
+  
+        it 'has total price of 12.99' do
+          expect(subject[:total_price]).to eq 12.99
+        end
+  
+        it 'has 1 => 10' do
+          expect(subject[:order_bundles]).to eq(customer_order_bundles)
+        end
       end
-
-      let(:subject) { CustomerOrder.new.request_order(10, flower).first }
-
-      it 'has the same flower code' do
-        expect(subject[:flower_code]).to eq 'R12'
-      end
-
-      it 'has the same number of flowers' do
-        expect(subject[:requested_flower]).to eq 10
-      end
-
-      it 'has total price of 12.99' do
-        expect(subject[:total_price]).to eq 12.99
-      end
-
-      it 'has 1 => 10' do
-        expect(subject[:order_bundles]).to eq(customer_order_bundles)
-      end
-    end
+      
+      context 'offer' do
+        let(:customer_order_bundles) do
+          [
+            {
+              number_of_flowers: 10,
+              number_needed: 1,
+              price: 11.99
+            }
+          ]
+        end
+  
+        let(:subject) { CustomerOrder.new.request_order(10, flower, true).first }
+  
+        it 'has the same flower code' do
+          expect(subject[:flower_code]).to eq 'R12'
+        end
+  
+        it 'has the same number of flowers' do
+          expect(subject[:requested_flower]).to eq 10
+        end
+  
+        it 'has total price of 12.99' do
+          expect(subject[:total_price]).to eq 11.99
+        end
+  
+        it 'has 1 => 10' do
+          expect(subject[:order_bundles]).to eq(customer_order_bundles)
+        end
+      end  
+    end  
   end
 end
