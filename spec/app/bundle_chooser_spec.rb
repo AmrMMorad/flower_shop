@@ -4,8 +4,8 @@ describe BundleChooser do
   let(:subject) { BundleChooser.new.choose_min_bundles(number_of_flowers, bundles) }
 
   context 'returns empty set for invalid solutions' do  
-    let(:bundle1) { Bundle.new(number_of_flowers: 10, price: 10) }
-    let(:bundle2) { Bundle.new(number_of_flowers: 5, price: 5) }
+    let(:bundle1) { Bundle.new(number_of_flowers: 10, price: 10, type: "type1") }
+    let(:bundle2) { Bundle.new(number_of_flowers: 5, price: 5, type: "type1") }
 
     let(:bundles) do
       [
@@ -31,8 +31,8 @@ describe BundleChooser do
   end
 
   context 'returns exactly one solution' do
-    let(:bundle1) { Bundle.new(number_of_flowers: 15, price: 15) }
-    let(:bundle2) { Bundle.new(number_of_flowers: 5, price: 5) }
+    let(:bundle1) { Bundle.new(number_of_flowers: 15, price: 15, type: "type1") }
+    let(:bundle2) { Bundle.new(number_of_flowers: 5, price: 5, type: "type1") }
     let(:bundles) do
       [
         bundle1,
@@ -47,9 +47,9 @@ describe BundleChooser do
   end
 
   context 'returns minimum bundles' do
-    let(:bundle1) { Bundle.new(number_of_flowers: 9, price: 9) }
-    let(:bundle2) { Bundle.new(number_of_flowers: 5, price: 5) }
-    let(:bundle3) { Bundle.new(number_of_flowers: 3, price: 3) }
+    let(:bundle1) { Bundle.new(number_of_flowers: 9, price: 9, type: "type1") }
+    let(:bundle2) { Bundle.new(number_of_flowers: 5, price: 5, type: "type1") }
+    let(:bundle3) { Bundle.new(number_of_flowers: 3, price: 3, type: "type1") }
     let(:bundles) do
       [
         bundle1,

@@ -7,26 +7,26 @@ describe Shop do
         name: 'Roses',
         code: 'R12',
         bundles: [
-          { number_of_flowers: 5, price: 6.99 },
-          { number_of_flowers: 10, price: 12.99 }
+          { number_of_flowers: 5, price: 6.99, type: :type1 },
+          { number_of_flowers: 10, price: 12.99, type: :type1 }
         ]
       },
       {
         name: 'Lilies',
         code: 'L09',
         bundles: [
-          { number_of_flowers: 3, price: 9.95 },
-          { number_of_flowers: 6, price: 16.95 },
-          { number_of_flowers: 9, price: 24.95 }
+          { number_of_flowers: 3, price: 9.95, type: :type1 },
+          { number_of_flowers: 6, price: 16.95, type: :type1 },
+          { number_of_flowers: 9, price: 24.95, type: :type1 }
         ]
       },
       {
         name: 'Tulips',
         code: 'T58',
         bundles: [
-          { number_of_flowers: 3, price: 5.95 },
-          { number_of_flowers: 5, price: 9.95 },
-          { number_of_flowers: 9, price: 16.99 }
+          { number_of_flowers: 3, price: 5.95, type: :type1 },
+          { number_of_flowers: 5, price: 9.95, type: :type1 },
+          { number_of_flowers: 9, price: 16.99, type: :type1 }
         ]
       }
     ]
@@ -34,7 +34,7 @@ describe Shop do
   let(:shop) { Shop.new(flowers) }
 
   context 'when order has negative flower number' do
-    let(:order) { [{ code: 'T58', number_of_flowers: -1 }] }
+    let(:order) { [{ code: 'T58', number_of_flowers: -1, type: 'type1' }] }
 
     it 'should raise an error' do
       expect { shop.order(order) }.to raise_error(ArgumentError)
@@ -52,9 +52,9 @@ describe Shop do
   context 'when the order items are valid' do
     let(:order) do
       [
-        { number_of_flowers: 10, code: 'R12' },
-        { number_of_flowers: 15, code: 'L09' },
-        { number_of_flowers: 13, code: 'T58' }
+        { number_of_flowers: 10, code: 'R12', type: :type1 },
+        { number_of_flowers: 15, code: 'L09', type: :type1 },
+        { number_of_flowers: 13, code: 'T58', type: :type1 }
       ]
     end
 

@@ -22,8 +22,8 @@ class App
       hash = []
       File.open(file) do |f|
         f.each do |line|
-          number_of_flowers, code = line.chomp.split(" ")
-          hash << { number_of_flowers: number_of_flowers.to_i, code: code }
+          number_of_flowers, code, type = line.chomp.split(" ")
+          hash << { number_of_flowers: number_of_flowers.to_i, code: code, type: type }
         end
       end
       hash
@@ -36,7 +36,8 @@ class App
       orders.each do |order_item|
         puts "#{order_item[:requested_flower]} #{order_item[:flower_code]} $#{order_item[:total_price]}"
         order_item[:order_bundles].each do |bundle|
-          puts "   #{bundle[:number_of_flowers]} X #{bundle[:number_needed]} $#{bundle[:price]}"
+          puts "   #{bundle[:number_of_flowers]} X #{bundle[:number_needed]} $#{bundle[:price]} \
+            from type #{bundle[:type]}"
         end
       end
     end

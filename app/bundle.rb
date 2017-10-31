@@ -3,12 +3,13 @@
 # and price) along with needed validation.
 # The class als contains method for getting the bundle with prices.
 class Bundle
-  attr_reader :number_of_flowers, :price
+  attr_reader :number_of_flowers, :price, :type
 
-  def initialize(number_of_flowers:, price:)
+  def initialize(number_of_flowers:, price:, type:)
     validate_input number_of_flowers, price
     @number_of_flowers = number_of_flowers
     @price = price
+    @type = type
   end
 
   private

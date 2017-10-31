@@ -5,14 +5,15 @@ describe CustomerOrder do
     context 'low value' do
       let(:bundles) do
         [
-          Bundle.new(number_of_flowers: 5, price: 6.99),
-          Bundle.new(number_of_flowers: 10, price: 12.99)
+          Bundle.new(number_of_flowers: 5, price: 6.99, type: "type1"),
+          Bundle.new(number_of_flowers: 10, price: 12.99, type: "type1")
         ]
       end
 
       let(:flower) { Flower.new(name: 'Roses', code: 'R12', bundles: bundles) }
+      let(:type) { "type1" }
 
-      let(:subject) { CustomerOrder.new.request_order(3, flower).first }
+      let(:subject) { CustomerOrder.new.request_order(3, flower, type).first }
 
       it 'has the same flower code' do
         expect(subject[:flower_code]).to eq 'R12'
@@ -34,9 +35,9 @@ describe CustomerOrder do
     context 'minimum bundles' do
       let(:bundles) do
         [
-          Bundle.new(number_of_flowers: 9, price: 16.99),
-          Bundle.new(number_of_flowers: 5, price: 9.95),
-          Bundle.new(number_of_flowers: 3, price: 5.95)
+          Bundle.new(number_of_flowers: 9, price: 16.99, type: "type1"),
+          Bundle.new(number_of_flowers: 5, price: 9.95, type: "type1"),
+          Bundle.new(number_of_flowers: 3, price: 5.95, type: "type1")
         ]
       end
 
@@ -57,7 +58,9 @@ describe CustomerOrder do
         ]
       end
 
-      let(:subject) { CustomerOrder.new.request_order(13, flower).first }
+      let(:type) { "type1" }
+
+      let(:subject) { CustomerOrder.new.request_order(13, flower, type).first }
 
       it 'has the same flower code' do
         expect(subject[:flower_code]).to eq 'T58'
@@ -79,14 +82,16 @@ describe CustomerOrder do
     context 'one bundle' do
       let(:bundles) do
         [
-          Bundle.new(number_of_flowers: 5, price: 6.99),
-          Bundle.new(number_of_flowers: 10, price: 12.99)
+          Bundle.new(number_of_flowers: 5, price: 6.99, type: "type1"),
+          Bundle.new(number_of_flowers: 10, price: 12.99, type: "type1"),
+          Bundle.new(number_of_flowers: 10, price: 5.99, type: "type2"),
+          Bundle.new(number_of_flowers: 10, price: 11.99, type: "type2")
         ]
       end
 
       let(:flower) { Flower.new(name: 'Roses', code: 'R12', bundles: bundles) }
 
-      let(:customer_order_bundles) do
+      let(:customer_order_bundles_type1) do
         [
           {
             number_of_flowers: 10,
@@ -95,23 +100,57 @@ describe CustomerOrder do
           }
         ]
       end
-
-      let(:subject) { CustomerOrder.new.request_order(10, flower).first }
-
-      it 'has the same flower code' do
-        expect(subject[:flower_code]).to eq 'R12'
+      
+      let(:customer_order_bundles_type2) do
+        [
+          {
+            number_of_flowers: 10,
+            number_needed: 1,
+            price: 11.99
+          }
+        ]
       end
 
-      it 'has the same number of flowers' do
-        expect(subject[:requested_flower]).to eq 10
-      end
+      let(:subject) { CustomerOrder.new.request_order(10, flower, type).first }
 
-      it 'has total price of 12.99' do
-        expect(subject[:total_price]).to eq 12.99
+      context 'type1' do
+        let(:type) { "type1" }
+        
+        it 'has the same flower code' do
+          expect(subject[:flower_code]).to eq 'R12'
+        end
+  
+        it 'has the same number of flowers' do
+          expect(subject[:requested_flower]).to eq 10
+        end
+  
+        it 'has total price of 12.99' do
+          expect(subject[:total_price]).to eq 12.99
+        end
+  
+        it 'has 1 => 10' do
+          expect(subject[:order_bundles]).to eq(customer_order_bundles_type1)
+        end
       end
-
-      it 'has 1 => 10' do
-        expect(subject[:order_bundles]).to eq(customer_order_bundles)
+      
+      context 'type2' do
+        let(:type) { "type2" }
+        
+        it 'has the same flower code' do
+          expect(subject[:flower_code]).to eq 'R12'
+        end
+  
+        it 'has the same number of flowers' do
+          expect(subject[:requested_flower]).to eq 10
+        end
+  
+        it 'has total price of 11.99' do
+          expect(subject[:total_price]).to eq 11.99
+        end
+  
+        it 'has 1 => 10' do
+          expect(subject[:order_bundles]).to eq(customer_order_bundles_type2)
+        end
       end
     end
   end
