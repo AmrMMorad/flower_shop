@@ -7,26 +7,26 @@ describe Shop do
         name: 'Roses',
         code: 'R12',
         bundles: [
-          { number_of_flowers: 5, price: 6.99 },
-          { number_of_flowers: 10, price: 12.99 }
+          { number_of_flowers: 5, price: 6.99, total: 2 },
+          { number_of_flowers: 10, price: 12.99, total: 2 }
         ]
       },
       {
         name: 'Lilies',
         code: 'L09',
         bundles: [
-          { number_of_flowers: 3, price: 9.95 },
-          { number_of_flowers: 6, price: 16.95 },
-          { number_of_flowers: 9, price: 24.95 }
+          { number_of_flowers: 3, price: 9.95, total: 2 },
+          { number_of_flowers: 6, price: 16.95, total: 2 },
+          { number_of_flowers: 9, price: 24.95, total: 2 }
         ]
       },
       {
         name: 'Tulips',
         code: 'T58',
         bundles: [
-          { number_of_flowers: 3, price: 5.95 },
-          { number_of_flowers: 5, price: 9.95 },
-          { number_of_flowers: 9, price: 16.99 }
+          { number_of_flowers: 3, price: 5.95, total: 2 },
+          { number_of_flowers: 5, price: 9.95, total: 2 },
+          { number_of_flowers: 9, price: 16.99, total: 2 }
         ]
       }
     ]

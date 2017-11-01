@@ -4,18 +4,20 @@
 # The class als contains method for getting the bundle with prices.
 class Bundle
   attr_reader :number_of_flowers, :price
+  attr_accessor :total
 
-  def initialize(number_of_flowers:, price:)
-    validate_input number_of_flowers, price
+  def initialize(number_of_flowers:, price:, total:)
+    validate_input number_of_flowers, price, total
     @number_of_flowers = number_of_flowers
     @price = price
+    @total = total
   end
 
   private
 
-  def validate_input(number_of_flowers, price)
+  def validate_input(number_of_flowers, price, total)
     raise ArgumentError, 'invalid bundle parameters' unless positive_number?(number_of_flowers) &&
-      positive_number?(price)
+      positive_number?(price) && positive_number?(total)
   end
 
   def positive_number?(number)

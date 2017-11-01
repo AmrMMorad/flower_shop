@@ -42,7 +42,9 @@ class BundleChooser
     return if requested_flowers < bundles.last.number_of_flowers
 
     bundles.each do |bund|
-      next if requested_flowers - bund.number_of_flowers < 0
+      remaining_flowers = requested_flowers - bund.number_of_flowers
+      next if  bund.total.zero? || remaining_flowers < 0
+      bund.total -= 1
       get_possible_bundles requested_flowers - bund.number_of_flowers,
                            bundles,
                            adjust_bundle(bundle, bund.number_of_flowers)

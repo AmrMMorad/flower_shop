@@ -4,8 +4,8 @@ describe BundleChooser do
   let(:subject) { BundleChooser.new.choose_min_bundles(number_of_flowers, bundles) }
 
   context 'returns empty set for invalid solutions' do  
-    let(:bundle1) { Bundle.new(number_of_flowers: 10, price: 10) }
-    let(:bundle2) { Bundle.new(number_of_flowers: 5, price: 5) }
+    let(:bundle1) { Bundle.new(number_of_flowers: 10, price: 10, total: 2) }
+    let(:bundle2) { Bundle.new(number_of_flowers: 5, price: 5, total: 2) }
 
     let(:bundles) do
       [
@@ -29,10 +29,32 @@ describe BundleChooser do
       it { expect(subject).to eq({}) }
     end
   end
+  
+  context 'returns empty set for orders greater than total number' do  
+    let(:bundle1) { Bundle.new(number_of_flowers: 10, price: 10, total: 0) }
+    let(:bundle2) { Bundle.new(number_of_flowers: 7, price: 5, total: 1) }
+
+    let(:bundles) do
+      [
+        bundle1,
+        bundle2
+      ]
+    end
+
+    context 'produces empty set quantity with total=0' do
+      let(:number_of_flowers) { 10 }
+      it { expect(subject).to eq({}) }
+    end
+
+    context 'produces empty set for very low quantity' do
+      let(:number_of_flowers) { 14 }
+      it { expect(subject).to eq({}) }
+    end
+  end
 
   context 'returns exactly one solution' do
-    let(:bundle1) { Bundle.new(number_of_flowers: 15, price: 15) }
-    let(:bundle2) { Bundle.new(number_of_flowers: 5, price: 5) }
+    let(:bundle1) { Bundle.new(number_of_flowers: 15, price: 15, total: 2) }
+    let(:bundle2) { Bundle.new(number_of_flowers: 5, price: 5, total: 2) }
     let(:bundles) do
       [
         bundle1,
@@ -47,9 +69,9 @@ describe BundleChooser do
   end
 
   context 'returns minimum bundles' do
-    let(:bundle1) { Bundle.new(number_of_flowers: 9, price: 9) }
-    let(:bundle2) { Bundle.new(number_of_flowers: 5, price: 5) }
-    let(:bundle3) { Bundle.new(number_of_flowers: 3, price: 3) }
+    let(:bundle1) { Bundle.new(number_of_flowers: 9, price: 9, total: 2) }
+    let(:bundle2) { Bundle.new(number_of_flowers: 5, price: 5, total: 2) }
+    let(:bundle3) { Bundle.new(number_of_flowers: 3, price: 3, total: 2) }
     let(:bundles) do
       [
         bundle1,

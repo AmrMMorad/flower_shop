@@ -5,8 +5,8 @@ describe CustomerOrder do
     context 'low value' do
       let(:bundles) do
         [
-          Bundle.new(number_of_flowers: 5, price: 6.99),
-          Bundle.new(number_of_flowers: 10, price: 12.99)
+          Bundle.new(number_of_flowers: 5, price: 6.99, total: 2),
+          Bundle.new(number_of_flowers: 10, price: 12.99, total: 2)
         ]
       end
 
@@ -34,9 +34,9 @@ describe CustomerOrder do
     context 'minimum bundles' do
       let(:bundles) do
         [
-          Bundle.new(number_of_flowers: 9, price: 16.99),
-          Bundle.new(number_of_flowers: 5, price: 9.95),
-          Bundle.new(number_of_flowers: 3, price: 5.95)
+          Bundle.new(number_of_flowers: 9, price: 16.99, total: 2),
+          Bundle.new(number_of_flowers: 5, price: 9.95, total: 2),
+          Bundle.new(number_of_flowers: 3, price: 5.95, total: 2)
         ]
       end
 
@@ -75,12 +75,42 @@ describe CustomerOrder do
         expect(subject[:order_bundles]).to eq(customer_order_bundles)
       end
     end
+    
+    context 'minimum bundles with empty for low total' do
+      let(:bundles) do
+        [
+          Bundle.new(number_of_flowers: 9, price: 16.99, total: 1),
+          Bundle.new(number_of_flowers: 5, price: 9.95, total: 1),
+          Bundle.new(number_of_flowers: 3, price: 5.95, total: 1)
+        ]
+      end
+
+      let(:flower) { Flower.new(name: 'Tulips', code: 'T58', bundles: bundles) }
+
+      let(:subject) { CustomerOrder.new.request_order(13, flower).first }
+
+      it 'has the same flower code' do
+        expect(subject[:flower_code]).to eq 'T58'
+      end
+
+      it 'has the same number of flowers' do
+        expect(subject[:requested_flower]).to eq 13
+      end
+
+      it 'has total price of 25.85' do
+        expect(subject[:total_price]).to eq 0
+      end
+
+      it 'has 2 => 5 and 1 => 3' do
+        expect(subject[:order_bundles]).to eq([])
+      end
+    end
 
     context 'one bundle' do
       let(:bundles) do
         [
-          Bundle.new(number_of_flowers: 5, price: 6.99),
-          Bundle.new(number_of_flowers: 10, price: 12.99)
+          Bundle.new(number_of_flowers: 5, price: 6.99, total: 2),
+          Bundle.new(number_of_flowers: 10, price: 12.99, total: 2)
         ]
       end
 

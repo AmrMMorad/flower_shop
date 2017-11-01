@@ -5,11 +5,26 @@ describe Bundle do
 
     context 'with valid input values' do
       before do
-        @bundle = Bundle.new(number_of_flowers: 10, price: 12.99)
+        @bundle = Bundle.new(number_of_flowers: 10, price: 12.99, total: 2)
       end
 
       it 'has a valid number of flowers' do
         expect(@bundle.number_of_flowers).to eq 10
+      end
+
+      it 'has a valid price' do
+        expect(@bundle.price).to eq 12.99
+      end
+    end
+    
+    context 'set total number' do
+      before do
+        @bundle = Bundle.new(number_of_flowers: 10, price: 12.99, total: 2)
+      end
+
+      it 'set the total number to new value' do
+        @bundle.total = 1
+        expect(@bundle.total).to eq 1
       end
 
       it 'has a valid price' do
@@ -21,6 +36,12 @@ describe Bundle do
       it 'raises an error when entering invalid number of flowers' do
         expect do
           Bundle.new(number_of_flowers: 'aaa', price: 5)
+        end.to raise_error(ArgumentError)
+      end
+      
+      it 'raises an error when entering invalid total' do
+        expect do
+          Bundle.new(number_of_flowers: 3, price: 5, total: -5)
         end.to raise_error(ArgumentError)
       end
 
@@ -45,9 +66,9 @@ describe Bundle do
   end
 
   context '#sort' do
-    let(:bundle1) { Bundle.new(number_of_flowers: 10, price: 10) }
-    let(:bundle2) { Bundle.new(number_of_flowers: 5, price: 5) }
-    let(:bundle3) { Bundle.new(number_of_flowers: 15, price: 15) }
+    let(:bundle1) { Bundle.new(number_of_flowers: 10, price: 10, total: 2) }
+    let(:bundle2) { Bundle.new(number_of_flowers: 5, price: 5, total: 2) }
+    let(:bundle3) { Bundle.new(number_of_flowers: 15, price: 15, total: 2) }
 
     let(:unsorted_bundles) do
       [
@@ -71,9 +92,9 @@ describe Bundle do
   end
 
   context '#bundle_with_prices' do
-    let(:bundle1) { Bundle.new(number_of_flowers: 10, price: 10) }
-    let(:bundle2) { Bundle.new(number_of_flowers: 5, price: 5) }
-    let(:bundle3) { Bundle.new(number_of_flowers: 15, price: 15) }
+    let(:bundle1) { Bundle.new(number_of_flowers: 10, price: 10, total: 2) }
+    let(:bundle2) { Bundle.new(number_of_flowers: 5, price: 5, total: 2) }
+    let(:bundle3) { Bundle.new(number_of_flowers: 15, price: 15, total: 2) }
 
     let(:bundles) do
       [
