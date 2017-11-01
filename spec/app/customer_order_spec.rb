@@ -10,7 +10,7 @@ describe CustomerOrder do
         ]
       end
 
-      let(:flower) { Flower.new(name: 'Roses', code: 'R12', bundles: bundles) }
+      let(:flower) { Flower.new(name: 'Roses', code: 'R12', bundles: bundles, price: 2) }
 
       let(:subject) { CustomerOrder.new.request_order(3, flower).first }
 
@@ -22,8 +22,8 @@ describe CustomerOrder do
         expect(subject[:requested_flower]).to eq 3
       end
 
-      it 'has total price of 0' do
-        expect(subject[:total_price]).to eq 0
+      it 'has total price of 6' do
+        expect(subject[:total_price]).to eq 6
       end
 
       it 'has {}' do
@@ -40,7 +40,7 @@ describe CustomerOrder do
         ]
       end
 
-      let(:flower) { Flower.new(name: 'Tulips', code: 'T58', bundles: bundles) }
+      let(:flower) { Flower.new(name: 'Tulips', code: 'T58', bundles: bundles, price: 2) }
 
       let(:customer_order_bundles) do
         [
@@ -84,7 +84,7 @@ describe CustomerOrder do
         ]
       end
 
-      let(:flower) { Flower.new(name: 'Roses', code: 'R12', bundles: bundles) }
+      let(:flower) { Flower.new(name: 'Roses', code: 'R12', bundles: bundles, price: 2) }
 
       let(:customer_order_bundles) do
         [

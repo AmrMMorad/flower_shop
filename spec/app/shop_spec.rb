@@ -9,7 +9,8 @@ describe Shop do
         bundles: [
           { number_of_flowers: 5, price: 6.99 },
           { number_of_flowers: 10, price: 12.99 }
-        ]
+        ],
+        price: 2
       },
       {
         name: 'Lilies',
@@ -18,7 +19,8 @@ describe Shop do
           { number_of_flowers: 3, price: 9.95 },
           { number_of_flowers: 6, price: 16.95 },
           { number_of_flowers: 9, price: 24.95 }
-        ]
+        ],
+        price: 2
       },
       {
         name: 'Tulips',
@@ -27,7 +29,8 @@ describe Shop do
           { number_of_flowers: 3, price: 5.95 },
           { number_of_flowers: 5, price: 9.95 },
           { number_of_flowers: 9, price: 16.99 }
-        ]
+        ],
+        price: 2
       }
     ]
   end

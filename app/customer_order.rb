@@ -27,7 +27,8 @@ class CustomerOrder
       flower_code: flower.code,
       requested_flower: requested_flowers,
       order_bundles: bundles_with_prices,
-      total_price: calculate_total_price(bundles_with_prices)
+      total_price: order_min_bundles.empty? ? flower.price * requested_flowers : 
+        calculate_total_price(bundles_with_prices)
     }
   end
 

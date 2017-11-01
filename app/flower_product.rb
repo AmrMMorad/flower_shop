@@ -23,7 +23,8 @@ class FlowerProduct
     Flower.new(
       name:    flower_product_json.fetch(:name),
       code:    flower_product_json.fetch(:code),
-      bundles: get_bundles(flower_product_json.fetch(:bundles))
+      bundles: get_bundles(flower_product_json.fetch(:bundles)),
+      price:   flower_product_json.fetch(:price)
     )
   end
 

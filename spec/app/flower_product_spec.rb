@@ -16,7 +16,8 @@ describe FlowerProduct do
               number_of_flowers: 10,
               price: 12.99
             }
-          ]
+          ],
+          price: 2
         }
       ]
     end

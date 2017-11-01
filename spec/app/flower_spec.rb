@@ -11,7 +11,7 @@ describe Flower do
           instance_double(Bundle)
         ]
       end
-      let(:flower) { Flower.new(name: 'Lilies', code: 'R12', bundles: bundles) }
+      let(:flower) { Flower.new(name: 'Lilies', code: 'R12', bundles: bundles, price: 2) }
 
       it 'has a name' do
         expect(flower.name).to eq 'Lilies'
@@ -24,6 +24,10 @@ describe Flower do
       it 'has bundles' do
         expect(flower.bundles).to eq bundles
       end
+      
+      it 'has price' do
+        expect(flower.price).to eq 2
+      end
     end
 
     context 'with invalid input values' do
@@ -35,12 +39,21 @@ describe Flower do
       end
 
       it 'raises an error when entering empty code' do
-        expect { Flower.new(name: '', code: 'R12', bundles: bundles).to raise_error(ArgumentError) }
+        expect { Flower.new(name: '', code: 'R12', bundles: bundles, price: 2).to raise_error(ArgumentError) }
       end
-
-      it 'raises an error when entering empty name' do
-        expect { Flower.new(name: 'Lilies', code: '', bundles: bundles).to raise_error(ArgumentError) }
+# 
+      # it 'raises an error when entering empty name' do
+        # expect { Flower.new(name: 'Lilies', code: '', bundles: bundles, price: 2).to 
+          # raise_error(ArgumentError) }
+      # end
+      
+      it 'raises an error when entering negative value in the price' do
+        # expect { Flower.new(name: 'Lilies', code: 'R12').to  }
+        # expect { Flower.new(name: 'Lilies', code: 'R12').code.to eq 'R12' }
+        expect do
+          Flower.new(name: 'Lilies', code: '', bundles: bundles, price: 2)
+        end.to raise_error(ArgumentError)
       end
-    end
+    end      
   end
 end
