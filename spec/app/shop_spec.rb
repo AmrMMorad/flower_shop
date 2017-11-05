@@ -92,4 +92,29 @@ describe Shop do
     end
 
   end
+  
+  context 'unit testing' do
+    let(:customer_order) { instance_double(CustomerOrder) }
+    let(:shop) { Shop.new(flowers) }
+    let(:order) do
+      [
+        { number_of_flowers: 10, code: 'R12' },
+        { number_of_flowers: 15, code: 'L09' },
+        { number_of_flowers: 13, code: 'T58' }
+      ]
+    end
+    
+    it 'should call flower product' do
+      expect(FlowerProduct).to receive(:new).with(flowers)
+      Shop.new(flowers)
+    end
+    
+    it 'should call customer order' do      
+      allow(customer_order).to receive(:request_order)
+      allow(customer_order).to receive(:customer_order_items)
+      expect(CustomerOrder).to receive(:new).and_return(customer_order)
+      shop.order(order)
+    end
+  end
+  
 end
